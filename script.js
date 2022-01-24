@@ -2,9 +2,11 @@ fetch('https://jsonplaceholder.typicode.com/users')
     .then(res => res.json())
     .then(text => {
         text.responseText;
-        let html = '';
         text.forEach(element => {
-            html += `       
+            setTimeout(function () {
+                document.querySelector('.loading').style.display = 'none';
+                let html = '';
+                html += `       
             <tr>
             <td>${element.id}</td>
             <td>${element.name}</td>
@@ -13,8 +15,10 @@ fetch('https://jsonplaceholder.typicode.com/users')
             <td><a href="${element.website}" >${element.website}</a></td>
             </tr>                
             `
+                document.querySelector('.body').innerHTML += html;
+            }, 1500)
+
         });
-        document.querySelector('.body').innerHTML += html;
     }).catch(err => {
         console.log(err);
     });
